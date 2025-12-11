@@ -15,7 +15,35 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        // Enable prerendering
+        enabled: true,
+
+        // Enable if you need pages to be at `/page/index.html` instead of `/page.html`
+        autoSubfolderIndex: false,
+
+        // How many prerender jobs to run at once
+        concurrency: 14,
+
+        // Whether to extract links from the HTML and prerender them also
+        crawlLinks: true,
+
+        // Filter function takes the page object and returns whether it should prerender
+        filter: ({ path }) => !path.startsWith('/do-not-render-me'),
+
+        // Number of times to retry a failed prerender job
+        retryCount: 2,
+
+        // Delay between retries in milliseconds
+        retryDelay: 1000,
+
+        // Callback when page is successfully rendered
+        onSuccess: ({ page }) => {
+          console.log(`Rendered ${page.path}!`)
+        },
+      },
+    }),
     viteReact(),
   ],
 })
