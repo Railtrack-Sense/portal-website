@@ -10,18 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HeaderFooterLayoutRouteImport } from './routes/_headerFooterLayout'
-import { Route as HeaderFooterLayoutEulaRouteImport } from './routes/_headerFooterLayout/eula'
 import { Route as HeaderFooterLayoutWidthLimiterLayoutRouteImport } from './routes/_headerFooterLayout/_widthLimiterLayout'
 import { Route as HeaderFooterLayoutWidthLimiterLayoutIndexRouteImport } from './routes/_headerFooterLayout/_widthLimiterLayout/index'
 
 const HeaderFooterLayoutRoute = HeaderFooterLayoutRouteImport.update({
   id: '/_headerFooterLayout',
   getParentRoute: () => rootRouteImport,
-} as any)
-const HeaderFooterLayoutEulaRoute = HeaderFooterLayoutEulaRouteImport.update({
-  id: '/eula',
-  path: '/eula',
-  getParentRoute: () => HeaderFooterLayoutRoute,
 } as any)
 const HeaderFooterLayoutWidthLimiterLayoutRoute =
   HeaderFooterLayoutWidthLimiterLayoutRouteImport.update({
@@ -36,30 +30,26 @@ const HeaderFooterLayoutWidthLimiterLayoutIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/eula': typeof HeaderFooterLayoutEulaRoute
   '/': typeof HeaderFooterLayoutWidthLimiterLayoutIndexRoute
 }
 export interface FileRoutesByTo {
-  '/eula': typeof HeaderFooterLayoutEulaRoute
   '/': typeof HeaderFooterLayoutWidthLimiterLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_headerFooterLayout': typeof HeaderFooterLayoutRouteWithChildren
   '/_headerFooterLayout/_widthLimiterLayout': typeof HeaderFooterLayoutWidthLimiterLayoutRouteWithChildren
-  '/_headerFooterLayout/eula': typeof HeaderFooterLayoutEulaRoute
   '/_headerFooterLayout/_widthLimiterLayout/': typeof HeaderFooterLayoutWidthLimiterLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/eula' | '/'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/eula' | '/'
+  to: '/'
   id:
     | '__root__'
     | '/_headerFooterLayout'
     | '/_headerFooterLayout/_widthLimiterLayout'
-    | '/_headerFooterLayout/eula'
     | '/_headerFooterLayout/_widthLimiterLayout/'
   fileRoutesById: FileRoutesById
 }
@@ -75,13 +65,6 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof HeaderFooterLayoutRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_headerFooterLayout/eula': {
-      id: '/_headerFooterLayout/eula'
-      path: '/eula'
-      fullPath: '/eula'
-      preLoaderRoute: typeof HeaderFooterLayoutEulaRouteImport
-      parentRoute: typeof HeaderFooterLayoutRoute
     }
     '/_headerFooterLayout/_widthLimiterLayout': {
       id: '/_headerFooterLayout/_widthLimiterLayout'
@@ -117,13 +100,11 @@ const HeaderFooterLayoutWidthLimiterLayoutRouteWithChildren =
 
 interface HeaderFooterLayoutRouteChildren {
   HeaderFooterLayoutWidthLimiterLayoutRoute: typeof HeaderFooterLayoutWidthLimiterLayoutRouteWithChildren
-  HeaderFooterLayoutEulaRoute: typeof HeaderFooterLayoutEulaRoute
 }
 
 const HeaderFooterLayoutRouteChildren: HeaderFooterLayoutRouteChildren = {
   HeaderFooterLayoutWidthLimiterLayoutRoute:
     HeaderFooterLayoutWidthLimiterLayoutRouteWithChildren,
-  HeaderFooterLayoutEulaRoute: HeaderFooterLayoutEulaRoute,
 }
 
 const HeaderFooterLayoutRouteWithChildren =
